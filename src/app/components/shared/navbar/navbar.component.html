@@ -1,0 +1,14 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Task-List</a>
+        <div class="d-flex">
+            <button (click)="logout()" *ngIf="logeado" class="btn btn-outline-primary">
+                Salir
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+            <button (click)="login()" *ngIf="!logeado" class="btn btn-outline-primary">
+                <i class="fab fa-google" aria-hidden="true"></i> Entrar con Google
+            </button>
+        </div>
+    </div>
+</nav>
