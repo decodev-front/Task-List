@@ -13,19 +13,24 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TareaComponent } from './pages/tarea/tarea.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    TareaComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp( environment.firebase ),
     AngularFirestoreModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
