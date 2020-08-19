@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService, User } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   logeado = false;
-
+  user: User;
   constructor(
     private _authService: AuthService,
     private router : Router
@@ -20,8 +20,9 @@ export class NavbarComponent implements OnInit {
                         this.logeado = false
                         return;
                       } else {
+                        this._authService.usuario = this.user;
                         this.logeado = true
-                        this.router.navigate(['home', user.displayName.toLowerCase()])
+                        // this.router.navigate(['home', user.displayName.toLowerCase()])
                       }
                     }) 
      console.log(this.logeado);               
@@ -33,14 +34,6 @@ export class NavbarComponent implements OnInit {
 
   login() {
     this._authService.login()
-        .then((response)=> {
-          console.log( response );
-          this.logeado = true;
-          this.router.navigate(['home', response.user.displayName.toLowerCase()])
-        })
-        .catch((error) => {
-          console.error( "Error al autenticarse", error );
-        })
   }
 
 

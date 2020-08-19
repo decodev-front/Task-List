@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TareasService } from '../../services/tareas.service';
+import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +10,28 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  user: User;
+
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private _tareaService: TareasService,
+    private _authService: AuthService
+  ) { 
+    // this.activatedRoute.params
+    //     .subscribe( (response) => {
+    //       console.log( response );
+    //     })
+  }
 
   ngOnInit(): void {
+
+    this._authService.usuarios
+                    .subscribe( response => {
+                      console.log(response);
+                    } )
+
+
   }
 
 

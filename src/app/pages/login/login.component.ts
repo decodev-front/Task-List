@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, User } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +9,10 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: any = {};
+  user: User;
 
   constructor(
+    private router: Router,
     private _authService: AuthService
   ) {   
     this._authService.usuario = this.user;
@@ -21,13 +23,8 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    this._authService.login()
-        .then((response)=> {
-          console.log( response );
-        })
-        .catch((error) => {
-          console.error( "Error al autenticarse", error );
-        })
+
+    this._authService.login();
   }
 
 

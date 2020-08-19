@@ -5,6 +5,7 @@ import { auth } from 'firebase/app';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface User { uid:string, name?:string };
 
@@ -18,13 +19,14 @@ export class AuthService {
   usuarios: Observable<User[]>
 
   listaUser: User[] = [];
-
+  guardar: boolean;
 
   usuario: User;
 
   constructor(
     public auth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private router: Router
   ) { 
 
     this.auth.authState
@@ -39,39 +41,41 @@ export class AuthService {
                   name: user.displayName
                 }
 
-                this.guardarUsuario( this.usuario );
+                // this.guardarUsuario( this.usuario );
+                console.log(this.guardar);
+
+                if( this.guardar ){
+                  this.guardarUsuario( this.usuario );
+                }
+
+                this.router.navigate(['home', this.usuario.uid])
 
               })
     
     this.usuariosCollection = afs.collection<User>('Usuarios')          
     this.usuarios = this.usuariosCollection.valueChanges();
+    
 
     this.usuarios
         .subscribe((response) => this.listaUser = response );
 
   } 
 
-  guardarUsuario(user: User) {
-
-    let encontrado = false;
-
-    this.listaUser.forEach((usuario) => {
-      if( usuario.uid === user.uid ){
-        encontrado = true;
-      }
-    })
-
-    if( !encontrado ){
+  private guardarUsuario(user: User) {
       this.usuariosCollection.add(user)
+      .then((response)=>{
+        console.log( response )
+      })
       .catch((error) => console.error(error))
-    }
   }
 
 
-
-
   login() {
-    return this.auth.signInWithPopup( new auth.GoogleAuthProvider() );
+    this.auth.signInWithPopup( new auth.GoogleAuthProvider() )
+              .then((response)=>{
+
+                this.guardar = response.additionalUserInfo.isNewUser;
+              });
   }
 
   logout() {
