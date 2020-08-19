@@ -1,1 +1,55 @@
-<p>tarea works!</p>
+<h2>
+    Agreagr Tarea</h2>
+<hr>
+
+
+<div class="row">
+
+    <div class="col">
+
+        <form (ngSubmit)="guardar()" [formGroup]="forma">
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">
+                    ID Firebase:
+                </label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="ID Firebase" formControlName="idFirebase" requerid>
+                </div>
+            </div>
+
+            <div class="form-group row  mt-3">
+                <label class="col-2 col-form-label">
+                    Titulo:
+                </label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Titulo de la Tarea" formControlName="titulo" requerid>
+                </div>
+            </div>
+
+            <div class="form-group row  mt-3">
+                <label class="col-2 col-form-label">
+                    Descripcion:
+                </label>
+                <div class="col">
+                    <textarea cols="10" rows="5" class="form-control" formControlName="desc">
+
+                    </textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group row mt-3">
+                <label class="col-2 col-form-label">&nbsp;</label>
+                <div class="input-group col">
+                    <button type="submit" class="btn btn-outline-primary btn-block">
+                Guardar
+              </button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -13,7 +13,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TareaComponent } from './pages/tarea/tarea.component';
 
 
@@ -31,6 +31,7 @@ import { TareaComponent } from './pages/tarea/tarea.component';
     AngularFirestoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
