@@ -16,12 +16,12 @@ export interface User { uid:string, name?:string };
 export class AuthService {
 
   private usuariosCollection: AngularFirestoreCollection<User>
+
   usuarios: Observable<User[]>
 
-  listaUser: User[] = [];
   guardar: boolean;
 
-  usuario: User;
+  public usuario: User;
 
   constructor(
     public auth: AngularFireAuth,
@@ -54,15 +54,14 @@ export class AuthService {
     
     this.usuariosCollection = afs.collection<User>('Usuarios')          
     this.usuarios = this.usuariosCollection.valueChanges();
-    
-
-    this.usuarios
-        .subscribe((response) => this.listaUser = response );
 
   } 
 
   private guardarUsuario(user: User) {
-      this.usuariosCollection.add(user)
+
+      this.usuariosCollection.doc(user.uid).set({
+        name: user.name
+      })
       .then((response)=>{
         console.log( response )
       })
